@@ -83,11 +83,11 @@ resource "aws_security_group" "eks_cluster_sg" {
   vpc_id      = var.vpc_id
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-    description = "Allow all outbound traffic"
+    description = "Allow HTTPS outbound traffic"
   }
 
   tags = {

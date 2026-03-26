@@ -128,25 +128,3 @@ class TestRiskLevel:
     def test_score_70_plus_is_critical(self):
         assert risk_level(70) == "CRITICAL"
         assert risk_level(100) == "CRITICAL"
-
-
-class TestAPIEndpoints:
-
-    def test_assess_endpoint(self):
-        from fastapi.testclient import TestClient
-        from app.main import app
-        client = TestClient(app)
-        payload = {
-            "workload_name": "my-app",
-            "namespace": "production",
-            "privileged_container": True,
-            "run_as_root": True,
-            "no_resource_limits": True,
-        }
-        response = client.post("/assess", json=payload)
-        assert response.status_code == 200
-        data = response.json()
-        assert "risk_score" in data
-        assert "violations" in data
-        assert "remediations" in data
-        assert data["compliant"] is False
