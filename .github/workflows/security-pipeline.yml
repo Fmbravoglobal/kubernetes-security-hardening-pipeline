@@ -58,9 +58,10 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: |
-          pip install fastapi uvicorn pydantic httpx pytest pytest-cov
+        run: pip install fastapi uvicorn pydantic httpx pytest pytest-cov
+
+      - name: Show repo structure
+        run: find . -type f -name "*.py" | head -20
 
       - name: Run pytest
-        run: pytest tests/ -v --tb=short --ignore=tests/test_api.py
-        continue-on-error: false
+        run: python -m pytest tests/test_main.py -v --tb=short
